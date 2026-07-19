@@ -1,0 +1,449 @@
+<!-- Supper Club Registration — matched to painterly invite -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,900;1,9..144,500;1,9..144,600&family=Kaushan+Script&family=Inter:wght@400;500;600;700&display=swap');
+
+  #sc-root {
+    --paper: #EDE5D3;
+    --paper-2: #E4DAC2;
+    --ink: #2C2E28;
+    --charcoal: #232935;
+    --sage: #6E7960;
+    --sage-deep: #545E48;
+    --terracotta: #B96B4B;
+    --cream-text: #F6F1E4;
+    --muted: #8A8571;
+    --line: rgba(44, 46, 40, 0.14);
+
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    min-height: 100%;
+    padding: 28px 16px 64px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #sc-root * { box-sizing: border-box; }
+
+  /* ---------- Plain text header ---------- */
+  .sc-header {
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+    padding: 8px 12px 0;
+  }
+
+  .sc-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sage-deep);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  .sc-script {
+    font-family: 'Kaushan Script', cursive;
+    font-size: 40px;
+    line-height: 1;
+    color: var(--ink);
+    margin-bottom: -8px;
+  }
+
+  .sc-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: 38px;
+    line-height: 0.95;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .sc-header-with {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--muted);
+    margin-bottom: 18px;
+  }
+
+  .sc-header-date {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .sc-header-meta {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 13.5px;
+    color: var(--sage-deep);
+    margin-bottom: 2px;
+  }
+
+  /* ---------- Seat ring ---------- */
+  .sc-ring-wrap {
+    position: relative;
+    width: 240px;
+    height: 240px;
+    margin: 24px 0 6px;
+  }
+  .sc-ring-center {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  .sc-ring-count {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 36px;
+    color: var(--charcoal);
+    line-height: 1;
+  }
+  .sc-ring-label {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .sc-seat {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(44,46,40,0.28);
+    background: transparent;
+    transition: all 0.5s ease;
+  }
+  .sc-seat.filled { background: var(--sage-deep); border-color: var(--sage-deep); }
+  .sc-seat.mine {
+    background: var(--terracotta);
+    border-color: var(--terracotta);
+    box-shadow: 0 0 10px 3px rgba(185,107,75,0.4);
+    transform: scale(1.4);
+  }
+  .sc-waitlist-note {
+    font-size: 12px;
+    color: var(--terracotta);
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+
+  /* ---------- Card ---------- */
+  .sc-card {
+    width: 100%;
+    max-width: 420px;
+    background: #FBF8F0;
+    border: 1px solid var(--line);
+    padding: 28px;
+    margin-top: 12px;
+    box-shadow: 0 4px 16px rgba(44,46,40,0.06);
+  }
+  .sc-field { margin-bottom: 16px; }
+  .sc-field label {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 7px;
+    font-weight: 600;
+  }
+  .sc-field input, .sc-field textarea {
+    width: 100%;
+    background: #F3EEE0;
+    border: 1px solid var(--line);
+    padding: 11px 12px;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+  .sc-field input:focus, .sc-field textarea:focus { border-color: var(--sage); }
+  .sc-field textarea { resize: vertical; min-height: 56px; }
+
+  .sc-btn {
+    width: 100%;
+    background: var(--charcoal);
+    color: var(--cream-text);
+    border: none;
+    padding: 13px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: filter 0.2s ease, transform 0.1s ease;
+    margin-top: 4px;
+  }
+  .sc-btn:hover { filter: brightness(1.2); }
+  .sc-btn:active { transform: scale(0.98); }
+  .sc-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .sc-btn.waitlist { background: var(--terracotta); }
+
+  .sc-error {
+    color: var(--terracotta);
+    font-size: 12.5px;
+    margin-top: -6px;
+    margin-bottom: 14px;
+  }
+
+  .sc-confirm { text-align: center; padding: 8px 4px 4px; }
+  .sc-confirm-label {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .sc-confirm-number {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-style: italic;
+    font-size: 62px;
+    color: var(--sage-deep);
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .sc-confirm-number.wl { color: var(--terracotta); }
+  .sc-confirm-name {
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .sc-confirm-sub {
+    font-size: 13px;
+    color: var(--muted);
+    max-width: 300px;
+    margin: 8px auto 0;
+    line-height: 1.6;
+  }
+
+  .sc-host-link {
+    margin-top: 30px;
+    font-size: 11.5px;
+    color: var(--muted);
+    background: none;
+    border: none;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+  }
+  .sc-host-link:hover { color: var(--ink); }
+
+  .sc-host-panel { width: 100%; max-width: 420px; margin-top: 16px; }
+  .sc-host-panel input {
+    width: 100%;
+    background: #F3EEE0;
+    border: 1px solid var(--line);
+    padding: 11px 12px;
+    color: var(--ink);
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+  .sc-guest-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 13px;
+  }
+  .sc-guest-row:last-child { border-bottom: none; }
+  .sc-guest-num { font-family: 'Fraunces', serif; color: var(--sage-deep); font-weight: 700; min-width: 26px; }
+  .sc-guest-num.wl { color: var(--terracotta); }
+  .sc-guest-info { flex: 1; }
+  .sc-guest-name { color: var(--ink); font-weight: 500; }
+  .sc-guest-meta { color: var(--muted); font-size: 11.5px; margin-top: 2px; }
+  .sc-loading { color: var(--muted); font-size: 13px; text-align: center; padding: 30px 0; }
+  .sc-host-title { font-family: 'Fraunces', serif; font-weight: 700; font-size: 19px; margin-bottom: 4px; color: var(--ink); }
+  .sc-host-summary { color: var(--muted); font-size: 12.5px; margin-bottom: 18px; }
+</style>
+
+<div id="sc-root">
+
+  <div class="sc-header">
+    <div class="sc-eyebrow">The Second Edition</div>
+    <div class="sc-script">girls</div>
+    <div class="sc-title">supper club</div>
+    <div class="sc-header-with">with Skye Saker Food</div>
+    <div class="sc-header-date">Friday 21. August&nbsp; |&nbsp; 19.00</div>
+    <div class="sc-header-meta">CHF 55.- &nbsp;|&nbsp; Hotel Du Lac, Interlaken Ost</div>
+  </div>
+
+  <div class="sc-ring-wrap" id="sc-ring"></div>
+  <div id="sc-waitlist-note"></div>
+
+  <div class="sc-card" id="sc-card">
+    <div class="sc-loading">Setting the table…</div>
+  </div>
+
+  <button class="sc-host-link" id="sc-host-toggle">I'm hosting — view guest list</button>
+  <div class="sc-host-panel" id="sc-host-panel" style="display:none;"></div>
+</div>
+
+<script>
+(function() {
+  const CAPACITY = 20;
+  const HOST_PASSCODE = "dulac25";
+  const STORAGE_KEY = "supper-club-registrations";
+
+  const ring = document.getElementById('sc-ring');
+  const waitlistNote = document.getElementById('sc-waitlist-note');
+  const card = document.getElementById('sc-card');
+  const hostToggle = document.getElementById('sc-host-toggle');
+  const hostPanel = document.getElementById('sc-host-panel');
+
+  let registrations = [];
+  let myEntry = null;
+
+  function seatPositions(n, radius) {
+    const positions = [];
+    for (let i = 0; i < n; i++) {
+      const angle = (i / n) * 2 * Math.PI - Math.PI / 2;
+      positions.push({ x: 120 + radius * Math.cos(angle), y: 120 + radius * Math.sin(angle) });
+    }
+    return positions;
+  }
+
+  function renderRing() {
+    const confirmed = registrations.filter(r => !r.waitlist);
+    const positions = seatPositions(CAPACITY, 104);
+    ring.innerHTML = '';
+    const center = document.createElement('div');
+    center.className = 'sc-ring-center';
+    center.innerHTML = `<div class="sc-ring-count">${confirmed.length}/${CAPACITY}</div><div class="sc-ring-label">seats filled</div>`;
+    ring.appendChild(center);
+    positions.forEach((pos, i) => {
+      const seat = document.createElement('div');
+      const seatNum = i + 1;
+      const isFilled = seatNum <= confirmed.length;
+      const isMine = myEntry && !myEntry.waitlist && myEntry.seat === seatNum;
+      seat.className = 'sc-seat' + (isFilled ? ' filled' : '') + (isMine ? ' mine' : '');
+      seat.style.left = (pos.x - 7) + 'px';
+      seat.style.top = (pos.y - 7) + 'px';
+      seat.title = isFilled ? ('Seat ' + seatNum) : ('Seat ' + seatNum + ' — open');
+      ring.appendChild(seat);
+    });
+    const waitlistCount = registrations.filter(r => r.waitlist).length;
+    waitlistNote.textContent = waitlistCount > 0 ? `+ ${waitlistCount} on the waitlist` : '';
+  }
+
+  function renderForm(errorMsg) {
+    const confirmedCount = registrations.filter(r => !r.waitlist).length;
+    const isFull = confirmedCount >= CAPACITY;
+    card.innerHTML = `
+      <div class="sc-field"><label for="sc-name">Name</label><input type="text" id="sc-name" placeholder="Your full name" /></div>
+      <div class="sc-field"><label for="sc-email">Email</label><input type="email" id="sc-email" placeholder="you@email.com" /></div>
+      <div class="sc-field"><label for="sc-diet">Dietary restrictions</label><textarea id="sc-diet" placeholder="Allergies, preferences, or leave blank"></textarea></div>
+      ${errorMsg ? `<div class="sc-error">${errorMsg}</div>` : ''}
+      <button class="sc-btn ${isFull ? 'waitlist' : ''}" id="sc-submit">${isFull ? 'Join the waitlist' : 'Save my seat'}</button>
+    `;
+    document.getElementById('sc-submit').addEventListener('click', handleSubmit);
+  }
+
+  function renderConfirmation(entry) {
+    const isWaitlist = entry.waitlist;
+    card.innerHTML = `
+      <div class="sc-confirm">
+        <div class="sc-confirm-label">${isWaitlist ? 'Waitlist position' : 'Your seat'}</div>
+        <div class="sc-confirm-number ${isWaitlist ? 'wl' : ''}">${entry.seat}</div>
+        <div class="sc-confirm-name">${escapeHtml(entry.name)}</div>
+        <div class="sc-confirm-sub">${isWaitlist ? "You're on the waitlist — we'll reach out right away if a seat opens up." : "You're confirmed for the table. Look out for details closer to the evening."}</div>
+      </div>
+    `;
+  }
+
+  function escapeHtml(str) { const div = document.createElement('div'); div.textContent = str; return div.innerHTML; }
+
+  async function loadRegistrations() {
+    try {
+      const result = await window.storage.get(STORAGE_KEY, true);
+      registrations = result ? JSON.parse(result.value) : [];
+    } catch (e) { registrations = []; }
+  }
+  async function saveRegistrations() { await window.storage.set(STORAGE_KEY, JSON.stringify(registrations), true); }
+
+  async function handleSubmit() {
+    const name = document.getElementById('sc-name').value.trim();
+    const email = document.getElementById('sc-email').value.trim();
+    const diet = document.getElementById('sc-diet').value.trim();
+    if (!name) { renderForm('Please enter your name.'); return; }
+    if (!email || !email.includes('@')) { renderForm('Please enter a valid email.'); return; }
+    const submitBtn = document.getElementById('sc-submit');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Saving…';
+    try {
+      await loadRegistrations();
+      const confirmedCount = registrations.filter(r => !r.waitlist).length;
+      const isWaitlist = confirmedCount >= CAPACITY;
+      const waitlistCount = registrations.filter(r => r.waitlist).length;
+      const entry = { name, email, diet, waitlist: isWaitlist, seat: isWaitlist ? waitlistCount + 1 : confirmedCount + 1, timestamp: new Date().toISOString() };
+      registrations.push(entry);
+      await saveRegistrations();
+      myEntry = entry;
+      renderRing();
+      renderConfirmation(entry);
+    } catch (e) { renderForm("Something went wrong saving your seat — please try again."); }
+  }
+
+  async function init() { await loadRegistrations(); renderRing(); renderForm(); }
+
+  let hostUnlocked = false;
+  hostToggle.addEventListener('click', async () => {
+    if (hostPanel.style.display === 'none') {
+      hostPanel.style.display = 'block';
+      if (!hostUnlocked) {
+        hostPanel.innerHTML = `
+          <input type="password" id="sc-passcode" placeholder="Host passcode" />
+          <button class="sc-btn" id="sc-passcode-submit">View guest list</button>
+          <div class="sc-error" id="sc-passcode-error" style="display:none;">Incorrect passcode.</div>
+        `;
+        document.getElementById('sc-passcode-submit').addEventListener('click', async () => {
+          const val = document.getElementById('sc-passcode').value;
+          if (val === HOST_PASSCODE) { hostUnlocked = true; await loadRegistrations(); renderHostPanel(); }
+          else { document.getElementById('sc-passcode-error').style.display = 'block'; }
+        });
+      } else { await loadRegistrations(); renderHostPanel(); }
+      hostToggle.textContent = 'Hide guest list';
+    } else {
+      hostPanel.style.display = 'none';
+      hostToggle.textContent = "I'm hosting — view guest list";
+    }
+  });
+
+  function renderHostPanel() {
+    const confirmed = registrations.filter(r => !r.waitlist);
+    const waitlist = registrations.filter(r => r.waitlist);
+    let rows = confirmed.map(r => `
+      <div class="sc-guest-row"><div class="sc-guest-num">${r.seat}</div><div class="sc-guest-info"><div class="sc-guest-name">${escapeHtml(r.name)}</div><div class="sc-guest-meta">${escapeHtml(r.email)}${r.diet ? ' · ' + escapeHtml(r.diet) : ''}</div></div></div>
+    `).join('');
+    let wlRows = waitlist.map(r => `
+      <div class="sc-guest-row"><div class="sc-guest-num wl">W${r.seat}</div><div class="sc-guest-info"><div class="sc-guest-name">${escapeHtml(r.name)}</div><div class="sc-guest-meta">${escapeHtml(r.email)}${r.diet ? ' · ' + escapeHtml(r.diet) : ''}</div></div></div>
+    `).join('');
+    hostPanel.innerHTML = `
+      <div class="sc-card">
+        <div class="sc-host-title">Guest list</div>
+        <div class="sc-host-summary">${confirmed.length} of ${CAPACITY} seats filled${waitlist.length ? ' · ' + waitlist.length + ' on waitlist' : ''}</div>
+        ${rows || '<div class="sc-guest-meta">No confirmed guests yet.</div>'}
+        ${waitlist.length ? '<div class="sc-host-title" style="margin-top:20px; font-size:16px;">Waitlist</div>' + wlRows : ''}
+      </div>
+    `;
+  }
+
+  init();
+})();
+</script>
